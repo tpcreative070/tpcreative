@@ -1,21 +1,19 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package co.tpcreative.service.upload;
 
+package co.tpcreative.service.upload;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
-
 import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-/**
- * @author PC
- */
+
 public class ProgressiveEntity implements HttpEntity {
 
     private final ProgressListener listener;

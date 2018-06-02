@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="color_purple">#9013FE</color>
+    <color name="color_purple_opacity">#669013fe</color>
+    <color name="color_purple_opacity_circle">#4D9200FD</color>
+    <color name="color_blue_opacity_circle">#4D3C9BF7</color>
+    <color name="bg_tab_group">#FDF6FF</color>
+    <color name="color_gray_settle_transaction">#a7a7a7</color>
+    <color name="color_gray_settle_info_tab_setting">#a7a7a7</color>
+
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorTeal">#009688</color>
+    <color name="colorGray">#9E9E9E</color>
+
+
+
+
+    <color name="color_gray">#d1c9c9</color>
+    <color name="color_black">#000000</color>
+
+    <!--Date time picker-->
+    <color name="picker_title">#676467</color>
+    <color name="picker_description">#ABA9AB</color>
+    <color name="picker_send">#636063</color>
+    <color name="color_date_dark">#35A0FB</color>
+    <color name="color_date_light">#BAD9FB</color>
+
+    <color name="color_blue">#3C9BF7</color>
+    <color name="color_white">#FFFFFF</color>
+    <color name="color_hint_text">#B7D2F2</color>
+    <color name="color_text_sign_up">#CBEEFE</color>
+    <color name="color_button_add_card">#1760a6</color>
+
+    <!--Home-->
+    <color name="home_line_item">#EDF6FF</color>
+    <color name="home_action">#88AED8</color>
+    <color name="home_descripton_dark">#1266B0</color>
+    <color name="home_border_avatar">#AF96C1EA</color>
+    <color name="home_button_border_left">#80E7E5E7</color>
+    <color name="home_button_border_right">#80CFE9FE</color>
+    <color name="home_background">#E7EAF1</color>
+    <color name="color_user_name">#99B8D5</color>
+
+    <!--Date time picker-->
+    <color name="date_background">#3C9BF7</color>
+    <color name="data_background_button_send">#1760A6</color>
+    <color name="data_number_light">#8AC3FA</color>
+    <color name="pd_blue">#CDCED2</color>
+    <color name="access_contact_background">#EBF3FA</color>
+    <!--Move money-->
+    <color name="move_money_text_dark">#1068B4</color>
+    <color name="move_money_background">#F4FAFF</color>
+
+    <!--Dialog request send-->
+    <color name="request_send_background">#eb3aa3ff</color>
+    <color name="request_send_button_text_color">#99FEFFFD</color>
+    <color name="group_tab_background">#eaffffff</color>
+    <color name="group_tab_button_done_background">#a640fc</color>
+    <color name="group_tab_hint_color">#66A133FF</color>
+    <!--Move money to contact-->
+    <color name="contact_background_button_normal">#809b9b9b</color>
+    <color name="contact_background_button_available">#349CF8</color>
+    <color name="contact_background_button_confirm_send">#7ED321</color>
+    <color name="request_send_background_purple">#ebA133FF</color>
+    <color name="color_background_dialog_find_friend">#8135a0fb</color>
+    <color name="color_item_split_me">#e1efff</color>
+    <!--Checkout-->
+    <color name="checkout_bank_accout_actionbar_background">#8D7ABD</color>
+    <color name="checkout_bank_description">#5584BD</color>
+    <color name="chekcout_bank_account_line">#BA9D9B</color>
+    <color name="checkout_bank_account_next">#FF9900</color>
+    <color name="checkout_confirm">#2B78E4</color>
+    <color name="checkout_confirm_title">#003762</color>
+    <color name="checkout_confirm_withdrawal">#9EC4F8</color>
+    <color name="checkout_confirm_finch_wallet">#203768</color>
+    <color name="checkout_bank_account_editext">#233540</color>
+    <color name="keyboard_background">#CCD0D6</color>
+    <color name="bg_choose_bank">#3C9BF7</color>
+    <color name="color_text_blue">#1760A6</color>
+    <color name="bg_cash_out_button">#17e2a8</color>
+    <color name="friend_title_overlay">#3c9bf7ff</color>
+
+    <color name="home_border_avatar_profile">#1dffffff</color>
+    <color name="background_item_food">#BBC1C9</color>
+    <color name="hintText">#CACACF</color>
+    <color name="color_bright_blue">#007AFF</color>
+    <color name="color_text_title_popup">#8F8F8F</color>
+    <color name="option_photo_delete">#f91806</color>
+    <color name="option_background">#EFEFEF</color>
+    <color name="border_photo">#4dffffff</color>
+    <color name="settle_tab_text_view">#A1A1A1</color>
+    <color name="bg_view_photo">#51000000</color>
+    <color name="color_tab_dialog">#bca640fc</color>
+    <color name="color_action_send_request">#bc3c9bf7</color>
+    <color name="color_dialog">#1b000000</color>
+    <color name="border_verify_account">#803c9bf7</color>
+    <color name="color_text_name_tab_detail">#2C2C2C</color>
+    <color name="color_text_action_tab_detail">#82828282</color>
+
+
+    //color confetti
+    <color name="green">#D35400</color>
+    <color name="red">#58D68D</color>
+    <color name="yellow">#FDF208</color>
+    <color name="gold">#FD0891</color>
+    <color name="gray">#edd3b2</color>
+    
+    <color name="activity_feed_name">#777777</color>
+    <color name="activity_feed_description">#949494</color>
+
+    <!--Notifi-->
+    <color name="gray_light">#cecece</color>
+    <color name="color_num">#729fcb</color>
+    <color name="opacity_50_blue">#803c9bf7</color>
+    <color name="opciaty_50_white">#80ffffff</color>
+    <color name="opciaty_80_white">#CCffffff</color>
+    <color name="find_friend">#565656ff</color>
+
+
+    <color name="empty_directory_hint">#c7c7c7</color>
+
+    <color name="compatibility_pressed_color">#1a000000</color>
+    <color name="compatibility_focus_color">#48000000</color>
+    <color name="transparent">#00000000</color>
+
+</resources>
