@@ -67,7 +67,7 @@
         <item name="android:fontFamily">@font/brandon_thin</item>
     </style>
 
-    <style name="brandonregEditText" parent="@android:style/Widget.EditText">
+    <style name="brandonregEditText" parent="TextAppearance.AppCompat">
         <item name="android:fontFamily">@font/brandon_reg</item>
     </style>
 
