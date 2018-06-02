@@ -43,27 +43,27 @@
         <item name="android:windowIsFloating">false</item>
     </style>
 
-    <style name="brandonbldTextView" parent="@android:style/Widget.TextView">
+    <style name="brandonbldTextView" parent="TextAppearance.AppCompat">
         <item name="android:fontFamily">@font/brandon_bld</item>
     </style>
 
-    <style name="brandonblkTextView" parent="@android:style/Widget.TextView">
+    <style name="brandonblkTextView" parent="TextAppearance.AppCompat">
         <item name="android:fontFamily">@font/brandon_blk</item>
     </style>
 
-    <style name="roboto_MediumTextView" parent="@android:style/Widget.TextView">
+    <style name="roboto_MediumTextView" parent="TextAppearance.AppCompat">
         <item name="android:fontFamily">@font/boboto_medium</item>
     </style>
 
-    <style name="brandonmedTextView" parent="@android:style/Widget.TextView">
+    <style name="brandonmedTextView" parent="TextAppearance.AppCompat">
         <item name="android:fontFamily">@font/brandon_med</item>
     </style>
 
-    <style name="brandonregTextView" parent="@android:style/Widget.TextView">
+    <style name="brandonregTextView" parent="TextAppearance.AppCompat">
         <item name="android:fontFamily">@font/brandon_reg</item>
     </style>
 
-    <style name="brandonthinTextView" parent="@android:style/Widget.TextView">
+    <style name="brandonthinTextView" parent="TextAppearance.AppCompat">
         <item name="android:fontFamily">@font/brandon_thin</item>
     </style>
 
@@ -71,11 +71,11 @@
         <item name="android:fontFamily">@font/brandon_reg</item>
     </style>
 
-    <style name="brandonmedEditText" parent="@android:style/Widget.EditText">
+    <style name="brandonmedEditText" parent="TextAppearance.AppCompat">
         <item name="android:fontFamily">@font/brandon_med</item>
     </style>
 
-    <style name="brandonRegEditText" parent="@android:style/Widget.EditText">
+    <style name="brandonRegEditText" parent="TextAppearance.AppCompat">
         <item name="android:fontFamily">@font/brandon_reg</item>
     </style>
 
