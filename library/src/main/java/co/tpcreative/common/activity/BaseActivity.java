@@ -67,7 +67,7 @@ public class BaseActivity extends AppCompatActivity {
 
     protected void setChangeFontTitle(String title){
         SpannableString s = new SpannableString(title);
-        s.setSpan(new TypefaceSpan(this,"brandon_reg.otf"), 0, s.length(),
+        s.setSpan(new TypefaceSpan(this,"font/brandon_reg.otf"), 0, s.length(),
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         actionBar.setTitle(s);
     }
