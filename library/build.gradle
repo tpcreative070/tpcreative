@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-
+apply plugin: 'realm-android'
 
 ext {
     PUBLISH_GROUP_ID = 'co.tpcreative'
