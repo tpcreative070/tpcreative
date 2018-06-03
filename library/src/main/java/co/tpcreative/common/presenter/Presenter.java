@@ -3,10 +3,9 @@ import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import java.util.concurrent.TimeUnit;
+import io.reactivex.disposables.CompositeDisposable;
 import rx.Observable;
-import rx.Observer;
 import rx.Subscription;
-import rx.observables.SyncOnSubscribe;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 
@@ -15,12 +14,12 @@ public class Presenter<V> {
 
     @Nullable
     private volatile V view;
-    protected CompositeSubscription subscriptions;
+    protected CompositeDisposable subscriptions;
     protected Subscription observable;
     @CallSuper
     public void bindView(@NonNull V view) {
         this.view = view;
-        this.subscriptions = new CompositeSubscription();
+        this.subscriptions = new CompositeDisposable();
     }
 
     @Nullable
@@ -36,10 +35,10 @@ public class Presenter<V> {
     @CallSuper
     private void unbindView(@NonNull V view) {
         if (subscriptions != null) {
-            if (subscriptions.isUnsubscribed()) {
-                subscriptions.unsubscribe();
+            if (!subscriptions.isDisposed()) {
+                subscriptions.dispose();
             }
-            if (subscriptions.hasSubscriptions()) {
+            if (subscriptions.isDisposed()) {
                 subscriptions.clear();
             }
             subscriptions = null;
