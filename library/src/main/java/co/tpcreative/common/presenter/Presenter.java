@@ -81,7 +81,7 @@ public class Presenter<V> {
 
 
     protected void initRxJavaLoader(){
-        observable = Observable.unsafeCreate(subscriber -> {
+        observable = Observable.create(subscriber -> {
             /*Do something here*/
             subscriber.onNext(true);
             subscriber.onCompleted();
