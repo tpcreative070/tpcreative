@@ -16,6 +16,8 @@ How to use.
  
    There are some things you need to initialize into your project.
    
+   [Application.class](https://github.com/tpcreative070/tpcreative/blob/master/sample/src/main/java/tpcreative/co/tpcreative/Application.java)
+   
    
       
       
