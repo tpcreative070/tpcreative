@@ -31,9 +31,9 @@ How to use.
        
        Custom Shree Preference.
        
-       [Custom Realm](https://realm.io/blog/realm-for-android/)
+       Custom Realm
        
-       [Adding Buffer Knike to Activity](http://jakewharton.github.io/butterknife/)
+       Adding Buffer Knike to Activity
    
    
       
