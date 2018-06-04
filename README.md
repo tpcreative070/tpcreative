@@ -18,6 +18,12 @@ How to use.
    
    [Application.class](https://github.com/tpcreative070/tpcreative/blob/master/sample/src/main/java/tpcreative/co/tpcreative/Application.java)
    
+   [build.gradle](https://github.com/tpcreative070/tpcreative/blob/master/sample/build.gradle)
+   
+   and 
+   
+   [AndroidMainnifest](https://github.com/tpcreative070/tpcreative/blob/master/sample/src/main/AndroidManifest.xml)
+   
    
       
       
