@@ -1,14 +1,11 @@
 package tpcreative.co.tpcreative;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.os.Bundle;
 import android.support.multidex.MultiDex;
 import android.util.Log;
-
 import java.util.HashMap;
-
 import co.tpcreative.common.application.BaseApplication;
 import co.tpcreative.common.controller.PrefsController;
 import co.tpcreative.common.network.Dependencies;
