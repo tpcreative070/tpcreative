@@ -26,9 +26,14 @@ How to use.
    
    Version 2.1 : 
        Func = RxJava2 and Retrofit => Restful API or Request api.
+       
        Custom UI such as EditText, TextView, Button...
+       
        Custom Shree Preference.
-       Custom Realm.
+       
+       [Custom Realm](https://realm.io/blog/realm-for-android/)
+       
+       [Adding Buffer Knike to Activity](http://jakewharton.github.io/butterknife/)
    
    
       
