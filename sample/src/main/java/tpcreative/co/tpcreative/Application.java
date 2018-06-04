@@ -15,7 +15,7 @@ import co.tpcreative.common.network.Dependencies;
 
 public class Application extends BaseApplication implements Dependencies.DependenciesListener,  android.app.Application.ActivityLifecycleCallbacks{
 
-    private String url = " http://tpalwayscreative.esy.es" ;
+    private String url = " Your root url" ;
     private static int resumed;
     private static int paused;
     private static int started;
