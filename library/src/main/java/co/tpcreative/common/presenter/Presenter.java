@@ -3,12 +3,14 @@ import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import java.util.concurrent.TimeUnit;
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Flowable;
+import io.reactivex.FlowableEmitter;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import rx.Observable;
+import io.reactivex.schedulers.Schedulers;
 import rx.Subscription;
-import rx.schedulers.Schedulers;
-import rx.subscriptions.CompositeSubscription;
-
 
 public class Presenter<V> {
 
@@ -67,30 +69,28 @@ public class Presenter<V> {
         }
     }
 
-    protected void initRxJavaDelay() {
-        observable = Observable.range(1, 10)
-                .concatMap(i-> Observable.just(i).delay(6000, TimeUnit.MILLISECONDS))
+    protected  void  onDelay(){
+
+       Observable.fromArray(0,10)
+        .just(true).delay(5000, TimeUnit.MILLISECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .doOnNext(i->{
 
                     /*Do something here*/
 
                 })
-                .toCompletable().subscribe();
+                .subscribe();
     }
-
 
     protected void initRxJavaLoader(){
-        observable = Observable.create(subscriber -> {
-            /*Do something here*/
-            subscriber.onNext(true);
-            subscriber.onCompleted();
-        }).observeOn(Schedulers.computation())
-                .subscribeOn(Schedulers.computation())
-                .subscribe(response -> {
+        Flowable.create((FlowableEmitter<Object> emitter) -> {
+            emitter.onNext(1);
+            emitter.onComplete();
+        }, BackpressureStrategy.BUFFER).observeOn(io.reactivex.schedulers.Schedulers.io()).subscribe(response ->{
 
-                });
+        });
     }
-
 
 }
 

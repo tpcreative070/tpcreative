@@ -11,7 +11,7 @@ import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
@@ -84,7 +84,7 @@ public class Dependencies<T> extends BaseDependencies  {
                 .baseUrl(URL)
                 .client(okHttpClient)
                 .addConverterFactory(isXML ? SimpleXmlConverterFactory.create(serializer): GsonConverterFactory.create(gson))
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create());
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create());
         return retrofitInstance.build().create(tClass);
     }
 
@@ -105,7 +105,7 @@ public class Dependencies<T> extends BaseDependencies  {
                 .baseUrl(URL)
                 .client(okHttpClient)
                 .addConverterFactory(isXML ? SimpleXmlConverterFactory.create(serializer): GsonConverterFactory.create(gson))
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create());
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create());
         return  retrofitInstance.build().create(tClass);
     }
 
