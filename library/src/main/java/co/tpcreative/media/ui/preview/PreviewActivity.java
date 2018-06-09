@@ -18,9 +18,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.TextView;
-
 import java.io.File;
-
 import co.tpcreative.R;
 import co.tpcreative.media.configuration.AnncaConfiguration;
 import co.tpcreative.media.ui.BaseAnncaActivity;
@@ -32,7 +30,6 @@ import co.tpcreative.media.utils.Utils;
 public class PreviewActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "PreviewActivity";
-
     private final static String MEDIA_ACTION_ARG = "media_action_arg";
     private final static String FILE_PATH_ARG = "file_path_arg";
     private final static String RESPONSE_CODE_ARG = "response_code_arg";
