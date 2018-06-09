@@ -28,9 +28,7 @@ import co.tpcreative.media.ui.view.AspectFrameLayout;
 import co.tpcreative.media.utils.AnncaImageLoader;
 import co.tpcreative.media.utils.Utils;
 
-/**
- * Created by memfis on 7/6/16.
- */
+
 public class PreviewActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "PreviewActivity";
