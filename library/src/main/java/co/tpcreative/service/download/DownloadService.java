@@ -10,6 +10,13 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import co.tpcreative.common.api.request.DownloadFileRequest;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -18,13 +25,9 @@ import okio.BufferedSink;
 import okio.Okio;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import rx.Observable;
-import rx.Observer;
-import rx.Subscriber;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
+
 
 /**
  * Created by PC on 9/1/2017.
@@ -114,10 +117,10 @@ public class DownloadService  implements ProgressResponseBody.ProgressResponseBo
                 .subscribe(handleResult(reqest));
     }
 
-    private synchronized Func1<Response<ResponseBody>, Observable<File>> processResponse(final DownloadFileRequest request) {
-        return new Func1<Response<ResponseBody>, Observable<File>>() {
+    private synchronized Function<Response<ResponseBody>, Observable<File>> processResponse(final DownloadFileRequest request) {
+        return new Function<Response<ResponseBody>, Observable<File>>() {
             @Override
-            public Observable<File> call(Response<ResponseBody> responseBodyResponse) {
+            public Observable<File> apply(Response<ResponseBody> responseBodyResponse) throws Exception {
                 if (responseBodyResponse==null) {
                     Log.d(TAG, "response Body is null");
                 }
@@ -130,9 +133,9 @@ public class DownloadService  implements ProgressResponseBody.ProgressResponseBo
     }
 
     private synchronized Observable<File> saveToDisk(final Response<ResponseBody> response, final DownloadFileRequest request) {
-        return Observable.create(new Observable.OnSubscribe<File>() {
+        return Observable.create(new ObservableOnSubscribe<File>() {
             @Override
-            public void call(Subscriber<? super File> subscriber) {
+            public void subscribe(ObservableEmitter<File> subscriber) throws Exception {
                 try {
                     new File(request.path_folder_output).mkdirs();
                     File destinationFile = new File(request.path_folder_output,request.file_name);
@@ -147,7 +150,7 @@ public class DownloadService  implements ProgressResponseBody.ProgressResponseBo
                     }
                     bufferedSink.close();
                     subscriber.onNext(destinationFile);
-                    subscriber.onCompleted();
+                    subscriber.onComplete();
                 } catch (IOException e) {
                     e.printStackTrace();
                     if (listener!=null){
@@ -170,9 +173,15 @@ public class DownloadService  implements ProgressResponseBody.ProgressResponseBo
         return new Observer<File>() {
             File file_name ;
             @Override
-            public void onCompleted() {
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onComplete() {
                 Log.d(TAG,"Download completed");
             }
+
             @Override
             public void onError(Throwable e) {
                 e.printStackTrace();
@@ -200,7 +209,7 @@ public class DownloadService  implements ProgressResponseBody.ProgressResponseBo
                 .baseUrl(baseUrl)
                 .client(getOkHttpDownloadClientBuilder(this,mapHeader))
                 .addConverterFactory(GsonConverterFactory.create(gson))
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create()).build();
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create()).build();
         return retrofit.create(serviceClass);
     }
 
