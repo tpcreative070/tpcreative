@@ -113,7 +113,7 @@ public class UploadService {
 
     public void postUploadFileMulti(UploadingFileRequest upload) {
 
-        Observable.unsafeCreate(subscriber -> {
+        Observable.create(subscriber -> {
             HttpClient client = new DefaultHttpClient();
             HttpPost post = new HttpPost(url);
             MultipartEntityBuilder builder = MultipartEntityBuilder.create();

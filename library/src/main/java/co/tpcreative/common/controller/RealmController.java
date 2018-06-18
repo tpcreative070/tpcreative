@@ -1,26 +1,15 @@
 package co.tpcreative.common.controller;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-
 import io.realm.Realm;
 import io.realm.RealmObject;
 import io.realm.RealmResults;
 import io.realm.Sort;
 
-public class RealmController <T extends RealmObject> {
-    private static RealmController instance;
-    private static RealmController mInstance ;
+public class RealmController<T extends RealmObject> {
 
+    private static RealmController instance;
     private Realm realm = Realm.getDefaultInstance() ;
     public static final String TAG = RealmController.class.getSimpleName();
-    private RealmControllerListener realmControllerListener;
-    private List<T> mList;
-    private T object ;
-    private T objectQuery;
-    private List<T> allObject ;
-
     public RealmController(){
 
     }
@@ -30,24 +19,6 @@ public class RealmController <T extends RealmObject> {
             realm = Realm.getDefaultInstance();
         }
         return realm;
-    }
-
-    public static RealmController withDependencies(RealmControllerListener listener){
-        if (mInstance==null){
-            mInstance = new RealmController();
-        }
-        mInstance.realmControllerListener = listener;
-        return mInstance;
-    }
-
-
-
-    public static RealmController with(RealmControllerListener listener) {
-        if (instance == null) {
-            instance = new RealmController();
-        }
-        instance.realmControllerListener = listener;
-        return instance;
     }
 
     public static RealmController with() {
@@ -61,22 +32,6 @@ public class RealmController <T extends RealmObject> {
         realm.refresh();
     }
 
-    public void clearAll(final Class<T> tClass, final int code) {
-        realm = null;
-        realm = Realm.getDefaultInstance();
-        try {
-            realm.executeTransaction(new Realm.Transaction() {
-                @Override
-                public void execute(Realm realm) {
-                    realm.delete(tClass);
-                    realmControllerListener.onRealmDeleted(true, code);
-                }
-            });
-        }
-        finally {
-            realm.close();
-        }
-    }
 
     public boolean clearAll(final Class<T> tClass) {
         realm = null;
@@ -92,30 +47,11 @@ public class RealmController <T extends RealmObject> {
         }
     }
 
-    public void getALLObject(final Class<T> tClass, final int code) {
-        realm = null;
-        realm = Realm.getDefaultInstance();
-        allObject = new ArrayList<>();
-        try {
-            realm.executeTransaction(new Realm.Transaction() {
-                @Override
-                public void execute(Realm realm) {
-                    allObject = realm.where(tClass).findAll();
-
-                }
-            });
-        }
-        finally {
-            realmControllerListener.onShowRealmList(allObject, code);
-            realm.close();
-        }
-    }
-
     public T getLatestObject(final Class<T> tClass, String key){
         realm = null;
         realm = Realm.getDefaultInstance();
         try {
-            T ob = realm.where(tClass).findAllSorted(key,Sort.DESCENDING).where().findFirst();
+            T ob = realm.where(tClass).findAllAsync().sort(key, Sort.DESCENDING).where().findFirst();
             if (ob!= null){
                 return realm.copyFromRealm(ob);
             }
@@ -141,23 +77,7 @@ public class RealmController <T extends RealmObject> {
         }
     }
 
-    public void mInsertObject(final T protocol, final int code){
-        realm = null;
-        realm = Realm.getDefaultInstance();
-        try {
-            realm.executeTransaction(new Realm.Transaction() {
-                @Override
-                public void execute(Realm realm) {
-                    object = realm.copyToRealmOrUpdate(protocol);
-                }
-            });
-        }finally {
-            realmControllerListener.onRealmInserted(object, code);
-            realm.close();
-        }
-    }
-
-    public T mInsertObject(final T protocol){
+    public T insertObject(final T protocol){
         realm = null;
         realm = Realm.getDefaultInstance();
         realm.beginTransaction();
@@ -174,26 +94,8 @@ public class RealmController <T extends RealmObject> {
         }
     }
 
-    public void mInsertList(final Class<T> tClass, final List<T> newsList, final int code) {
-        realm = null;
-        realm = Realm.getDefaultInstance();
-        mList = new ArrayList<>();
-        try {
-            realm.executeTransaction(new Realm.Transaction() {
-                @Override
-                public void execute(Realm realm) {
-                    realm.insert(newsList);
-                    mList = realm.where(tClass).findAll();
-                }
-            });
-        }
-        finally {
-            realmControllerListener.onRealmInsertedList(mList, code);
-            realm.close();
-        }
-    }
 
-    public List<T> mInsertList(final Class<T> tClass, final List<T> newsList){
+    public List<T> insertList(final Class<T> tClass, final List<T> newsList){
         realm = null;
         realm = Realm.getDefaultInstance();
         realm.beginTransaction();
@@ -211,25 +113,8 @@ public class RealmController <T extends RealmObject> {
         }
     }
 
-    public void mEditItem(final String key, final String value, final T object, final Class<T> tClass, final int code){
-        realm = null;
-        realm = Realm.getDefaultInstance();
-        try {
-            realm.executeTransaction(new Realm.Transaction() {
-                @Override
-                public void execute(Realm realm) {
-                    T object = realm.where(tClass).equalTo(key, value).findFirst();
-                    T result = realm.copyToRealmOrUpdate(object);
-                    realmControllerListener.onRealmUpdated(result, code);
-                }
-            });
-        }
-        finally {
-            realm.close();
-        }
-    }
 
-    public T mEditItem(final String key, final String value, final Class<T> tClass){
+    public T editItem(final String key, final String value, final Class<T> tClass){
         realm = null ;
         realm = Realm.getDefaultInstance();
         realm.beginTransaction();
@@ -245,32 +130,9 @@ public class RealmController <T extends RealmObject> {
             realm.commitTransaction();
             realm.close();
         }
-
     }
 
-    public void mDeleteItem(final String key, final String value, final Class<T> tClass, final int code){
-        realm = null;
-        realm = Realm.getDefaultInstance();
-        try {
-            realm.executeTransaction(new Realm.Transaction() {
-                @Override
-                public void execute(Realm realm) {
-                    RealmResults<T> result = realm.where(tClass).equalTo(key, value).findAll();
-                    boolean check = result.deleteAllFromRealm();
-                        if (check) {
-                            realmControllerListener.onRealmDeleted(true, code);
-                        } else {
-                            realmControllerListener.onRealmDeleted(false, code);
-                        }
-
-                }
-            });
-        }finally {
-            realm.close();
-        }
-    }
-
-    public boolean mDeleteItem(final String key, final String value, final Class<T> tClass){
+    public boolean deleteItem(final String key, final String value, final Class<T> tClass){
         realm = null;
         realm = Realm.getDefaultInstance();
         try {
@@ -285,23 +147,6 @@ public class RealmController <T extends RealmObject> {
         finally {
             realm.close();
             return true;
-        }
-    }
-
-    public void getSearchObject(final String key , final String value , final Class<T> tClass, final int code, final HashMap<String,String> hashMap) {
-        realm = null;
-        realm = Realm.getDefaultInstance();
-        try {
-            realm.executeTransaction(new Realm.Transaction() {
-                @Override
-                public void execute(Realm realm) {
-                   objectQuery = realm.where(tClass).equalTo(key, value).findFirst();
-                }
-            });
-        }
-        finally {
-            realmControllerListener.onShowRealmQueryItem(objectQuery, hashMap, code);
-            realm.close();
         }
     }
 
@@ -369,7 +214,6 @@ public class RealmController <T extends RealmObject> {
         }
     }
 
-
     public T getSearchObject(final String key , final byte value , final Class<T> tClass){
         realm = null;
         realm = Realm.getDefaultInstance();
@@ -379,24 +223,6 @@ public class RealmController <T extends RealmObject> {
                 return realm.copyFromRealm(ob);
             }
             return ob;
-        }
-        finally {
-            realm.close();
-        }
-    }
-
-
-    public void getListFilter(final String key, final int value, final Class<T> tClass, final int code){
-        realm = null;
-        realm = Realm.getDefaultInstance();
-        try {
-            realm.executeTransaction(new Realm.Transaction() {
-                @Override
-                public void execute(Realm realm) {
-                    List<T> list = realm.where(tClass).greaterThan(key, value).findAll();
-                    realmControllerListener.onShowRealmList(list, code);
-                }
-            });
         }
         finally {
             realm.close();
@@ -433,22 +259,6 @@ public class RealmController <T extends RealmObject> {
         }
     }
 
-    public void getFirstItem(final Class<T> tClass, final int code){
-        realm = null;
-        realm = Realm.getDefaultInstance();
-        try {
-            realm.executeTransaction(new Realm.Transaction() {
-                @Override
-                public void execute(Realm realm) {
-                    T object = realm.where(tClass).findFirst();
-                    realmControllerListener.onShowRealmObject(object, code);
-                }
-            });
-        }finally {
-            realm.close();
-        }
-    }
-
     public T getFirstItem(final Class<T> tClass){
         realm = null;
         realm = Realm.getDefaultInstance();
@@ -462,29 +272,6 @@ public class RealmController <T extends RealmObject> {
         }finally {
             realm.close();
         }
-    }
-
-    public void hasObject(final Class<T> tClass, final int code) {
-        realm = null;
-        realm = Realm.getDefaultInstance();
-        try {
-            realm.executeTransaction(new Realm.Transaction() {
-                @Override
-                public void execute(Realm realm) {
-                    T custom = realm.where(tClass).findFirst();
-                    if (custom != null) {
-                        realmControllerListener.onShowRealmCheck(true, code);
-                    } else {
-                        realmControllerListener.onShowRealmCheck(false, code);
-                    }
-
-                }
-            });
-        }
-        finally {
-            realm.close();
-        }
-
     }
 
     public T hasObject(final Class<T> tClass) {
@@ -501,17 +288,6 @@ public class RealmController <T extends RealmObject> {
         finally {
             realm.close();
         }
-    }
-
-    public interface RealmControllerListener<T>  {
-        void onShowRealmObject(T object, int code);
-        void onShowRealmList(List<T> list, int code);
-        void onShowRealmCheck(boolean checked, int code);
-        void onShowRealmQueryItem(T object, HashMap<String, String> hashMap, int code);
-        void onRealmUpdated(T object, int code);
-        void onRealmDeleted(boolean t, int code);
-        void onRealmInserted(T object, int code);
-        void onRealmInsertedList(List<T> list, int code);
     }
 
 }

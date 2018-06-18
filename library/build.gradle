@@ -8,8 +8,8 @@ ext {
 }
 
 android {
-    compileSdkVersion 27
 
+    compileSdkVersion 27
 
     defaultConfig {
         minSdkVersion 17

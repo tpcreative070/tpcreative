@@ -2,6 +2,7 @@ package co.tpcreative.common.presenter;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import java.util.concurrent.TimeUnit;
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
@@ -70,16 +71,12 @@ public class Presenter<V> {
     }
 
     protected  void  onDelay(){
-
-       Observable.fromArray(0,10)
-        .just(true).delay(5000, TimeUnit.MILLISECONDS)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+       Observable.fromArray(0,5)
+               .concatMap(i-> Observable.just(i).delay(6000, TimeUnit.MILLISECONDS))
                 .doOnNext(i->{
-
                     /*Do something here*/
-
                 })
+               .doOnComplete(() -> Log.d("",""))
                 .subscribe();
     }
 
