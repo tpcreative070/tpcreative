@@ -4,7 +4,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package co.tpcreative.service.upload;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;

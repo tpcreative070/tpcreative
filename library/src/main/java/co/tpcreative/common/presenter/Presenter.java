@@ -84,7 +84,7 @@ public class Presenter<V> {
         Flowable.create((FlowableEmitter<Object> emitter) -> {
             emitter.onNext(1);
             emitter.onComplete();
-        }, BackpressureStrategy.BUFFER).observeOn(io.reactivex.schedulers.Schedulers.io()).subscribe(response ->{
+        }, BackpressureStrategy.BUFFER).observeOn(Schedulers.io()).subscribe(response ->{
 
         });
     }

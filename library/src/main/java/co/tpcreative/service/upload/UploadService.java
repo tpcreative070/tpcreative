@@ -4,9 +4,7 @@
  * and open the template in the editor.
  */
 package co.tpcreative.service.upload;
-
 import android.util.Log;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -21,10 +19,11 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
-
 import co.tpcreative.common.api.request.UploadingFileRequest;
-import rx.Observable;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
 
 /**
  * @author PC
@@ -35,6 +34,16 @@ public class UploadService {
     private UploadServiceListener listener;
     private String url;
 
+    public Disposable getSubscriptions() {
+        return subscriptions;
+    }
+
+    public void setSubscriptions(Disposable subscriptions) {
+        this.subscriptions = subscriptions;
+    }
+
+    private Disposable subscriptions;
+
     public static final String TAG = UploadService.class.getSimpleName();
 
     public void setListener(UploadServiceListener listener, String url) {
@@ -42,10 +51,8 @@ public class UploadService {
         this.url = url;
     }
 
-
     public void postSpecificFile(UploadingFileRequest upload,String key) {
-
-        Observable.create(subscriber -> {
+        subscriptions = Observable.create(subscriber -> {
             HttpClient client = new DefaultHttpClient();
             HttpPost post = new HttpPost(url);
             MultipartEntityBuilder builder = MultipartEntityBuilder.create();
@@ -101,9 +108,9 @@ public class UploadService {
                 responseString = e.toString();
             }
             subscriber.onNext(responseString);
-            subscriber.onCompleted();
-        }).observeOn(Schedulers.immediate())
-                .subscribeOn(Schedulers.immediate())
+            subscriber.onComplete();
+        }).observeOn(Schedulers.computation())
+                .subscribeOn(Schedulers.computation())
                 .subscribe(response -> {
                     listener.onUploadCompleted((String) response,upload);
                 });
@@ -113,7 +120,7 @@ public class UploadService {
 
     public void postUploadFileMulti(UploadingFileRequest upload) {
 
-        Observable.create(subscriber -> {
+        subscriptions = Observable.create(subscriber -> {
             HttpClient client = new DefaultHttpClient();
             HttpPost post = new HttpPost(url);
             MultipartEntityBuilder builder = MultipartEntityBuilder.create();
@@ -170,9 +177,9 @@ public class UploadService {
                 responseString = e.toString();
             }
             subscriber.onNext(responseString);
-            subscriber.onCompleted();
-        }).observeOn(Schedulers.immediate())
-                .subscribeOn(Schedulers.immediate())
+            subscriber.onComplete();
+        }).observeOn(Schedulers.computation())
+                .subscribeOn(Schedulers.computation())
                 .subscribe(response -> {
                     listener.onUploadCompleted((String) response,upload);
                 });
@@ -181,9 +188,7 @@ public class UploadService {
 
     public interface UploadServiceListener {
         void onUploadCompleted(String response, UploadingFileRequest request);
-
         void onProgressing(int percent, long total);
-
         void onSpeed(double speed);
     }
 }

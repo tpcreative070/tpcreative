@@ -15,8 +15,7 @@ public class MultiUploadService extends MultipartEntity {
         this.listener = listener;
     }
 
-    public MultiUploadService(final HttpMultipartMode mode,
-                              final ProgressListener listener) {
+    public MultiUploadService(final HttpMultipartMode mode,final ProgressListener listener) {
         super(mode);
         this.listener = listener;
     }
