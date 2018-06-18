@@ -10,7 +10,7 @@ How to use.
 	    }
    Step 2 : Step 2. Add the dependency
       
-       implementation 'com.github.tpcreative070:tpcreative:2.1'
+       implementation 'com.github.tpcreative070:tpcreative:2.5'
        
  
    There are some things you need to initialize into your project.
