@@ -4,8 +4,10 @@ import android.util.Log;
 import android.widget.TextView;
 import butterknife.BindView;
 import co.tpcreative.common.activity.BaseActivity;
+import co.tpcreative.common.component.TPApplication;
+import co.tpcreative.common.component.TPReceiver;
 
-public class MainActivity extends BaseActivity implements AndroidReceiver.ConnectivityReceiverListener{
+public class MainActivity extends BaseActivity implements TPReceiver.ConnectivityReceiverListener{
 
     @BindView(R.id.tvHello)
     TextView textView;
@@ -16,18 +18,15 @@ public class MainActivity extends BaseActivity implements AndroidReceiver.Connec
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         textView.setText("Welcome To TPCreative");
-        Application.getInstance().setConnectivityListener(this);
-
-        if (AndroidReceiver.isConnected()){
+        ApplicationTest.getInstance().setConnectivityListener(this);
+        if (ReceiverTest.isConnected()){
             textView.setText("Connected network");
             textView.setTextColor(getResources().getColor(R.color.contact_background_button_confirm_send));
         }
         else{
             textView.setText("Disconnected network");
             textView.setTextColor(getResources().getColor(R.color.option_photo_delete));
-
         }
-
     }
 
     @Override

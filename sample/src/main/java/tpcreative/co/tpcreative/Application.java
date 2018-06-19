@@ -23,7 +23,6 @@ public class Application extends BaseApplication implements Dependencies.Depende
     private static String TAG = Application.class.getSimpleName();
     private static Application mInstance;
 
-
     @Override
     public void onCreate() {
         super.onCreate();
