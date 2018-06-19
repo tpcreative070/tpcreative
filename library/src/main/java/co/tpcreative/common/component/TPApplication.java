@@ -1,46 +1,27 @@
-package tpcreative.co.tpcreative;
+package co.tpcreative.common.component;
 import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.os.Bundle;
 import android.support.multidex.MultiDex;
 import android.util.Log;
-import java.util.HashMap;
 import co.tpcreative.common.application.BaseApplication;
-import co.tpcreative.common.controller.PrefsController;
-import co.tpcreative.common.network.Dependencies;
 
-public class Application extends BaseApplication implements Dependencies.DependenciesListener,  android.app.Application.ActivityLifecycleCallbacks{
 
-    private String url = "http://tpcreative.co" ;
+public class TPApplication extends BaseApplication implements Application.ActivityLifecycleCallbacks{
+
     private static int resumed;
     private static int paused;
     private static int started;
     private static int stopped;
-    protected static Dependencies dependencies;
-    public static API serverAPI ;
-    public static String authorization = null ;
-    private static String TAG = Application.class.getSimpleName();
-    private static Application mInstance;
-
+    private static String TAG = TPApplication.class.getSimpleName();
+    private static TPApplication mInstance;
 
     @Override
     public void onCreate() {
         super.onCreate();
         MultiDex.install(this);
-        dependencies = Dependencies.getsInstance(getApplicationContext(),url);
-        dependencies.dependenciesListener(this);
-        dependencies.init();
-        serverAPI = (API) Dependencies.serverAPI;
         mInstance = this;
-        /*Init SharePreference*/
-        new PrefsController.Builder()
-                .setContext(this)
-                .setMode(ContextWrapper.MODE_PRIVATE)
-                .setPrefsName(getPackageName())
-                .setUseDefaultSharedPreference(true)
-                .build();
-
     }
 
     @Override
@@ -48,7 +29,6 @@ public class Application extends BaseApplication implements Dependencies.Depende
         super.attachBaseContext(base);
         MultiDex.install(base);
     }
-
 
     @Override
     public void onActivityDestroyed(Activity activity) {
@@ -101,56 +81,19 @@ public class Application extends BaseApplication implements Dependencies.Depende
         return resumed > paused;
     }
 
-    public static void onSetAuthor(String authors){
-        authorization = authors;
-    }
-
-    @Override
-    public String onAuthorToken() {
-        return authorization;
-    }
-
-    @Override
-    public HashMap<String, String> onCustomHeader() {
-        HashMap<String,String>hashMap = new HashMap<>();
-        hashMap.put("Content-Type","application/json");
-        if (authorization!=null){
-            hashMap.put("Authorization",authorization);
-        }
-        return hashMap;
-    }
-
-    @Override
-    public Class onObject() {
-        return API.class;
-    }
-
-    @Override
-    public boolean isXML() {
-        return false;
-    }
-
-    private static Application sInstance;
+    private static TPApplication sInstance;
 
 
-    public Application() {
+    public TPApplication() {
         sInstance = this;
     }
 
-    public static Application get() {
-        return sInstance;
-    }
-
-    public static synchronized Application getInstance() {
+    public static synchronized TPApplication getInstance() {
         return mInstance;
     }
 
-    public void setConnectivityListener(AndroidReceiver.ConnectivityReceiverListener listener) {
-        AndroidReceiver.connectivityReceiverListener = listener;
-    }
-
-    public String getUrl(){
-        return url;
+    public void setConnectivityListener(TPReceiver.ConnectivityReceiverListener listener) {
+        TPReceiver.connectivityReceiverListener = listener;
     }
 
     /*
@@ -169,3 +112,4 @@ public class Application extends BaseApplication implements Dependencies.Depende
 
 
 }
+
