@@ -11,14 +11,13 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
-import rx.Subscription;
+
 
 public class Presenter<V> {
 
     @Nullable
     private volatile V view;
     protected CompositeDisposable subscriptions;
-    protected Subscription observable;
     @CallSuper
     public void bindView(@NonNull V view) {
         this.view = view;
